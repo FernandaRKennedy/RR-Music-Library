@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-
+import { useParams, useNavigate} from 'react-router-dom'
+// import NavButtons from './NavButtons'
 
 function ArtistView() {
     const { id } = useParams()
@@ -8,7 +8,7 @@ function ArtistView() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const API_URL = `http://localhost:4000/album/${id}`
+            const API_URL = `http://localhost:4000/album/${id}`  //url to get album data
             const response = await fetch(API_URL)
             const data = await response.json()
             const albums = data.results.filter(item => item.collectionType === 'Album')
@@ -20,17 +20,16 @@ function ArtistView() {
     }, [id])
 
     const navigate = useNavigate()
-
-    const navButtons = () => {
+    const navButtons = ()  => { 
         return (
-            <div>
-                <button onClick={() => navigate(-1)}>Back</button>
+             <div>
+                 <button onClick={() => navigate(-1)}>Back</button>
                 |
                 <button onClick={() => navigate('/')}>Home</button>
             </div>
         )
     }
-
+          
     const display = artistData && artistData.map(album => {
         return (
             <div key={album.collectionId}>
@@ -42,7 +41,7 @@ function ArtistView() {
 
     return (
         <>
-            {navButtons()}
+          {navButtons()}
             {display}
         </>
     )
